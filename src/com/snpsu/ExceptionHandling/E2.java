@@ -1,7 +1,7 @@
 package com.snpsu.ExceptionHandling;
 
 public class E2 {
-    public static void main(String[] args) {
+    public static void kmain(String[] args) {
         int i,j,k=0;
         i=10;
         j=2;
