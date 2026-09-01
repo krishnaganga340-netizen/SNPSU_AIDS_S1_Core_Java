@@ -36,18 +36,49 @@ public class SLL {
            temp.next=n;
 
         }
-//        void insertAtPos(int val, int pos){
-//           Node n=new Node(val);
-//
-//           Node temp=head;
-//           while(--pos>0){
-//               temp=temp.next;
-//           }
-//           n.next=temp.next;
-//           temp.next=n;
-//
-//
-//        }
+        void insertAtPos(int val, int pos){
+           Node n=new Node(val);
+
+           Node temp=head;
+           while(--pos>0){
+               temp=temp.next;
+           }
+           n.next=temp.next;
+           temp.next=n;
+
+
+        }
+        void deleteAtHead(){
+           if(head==null){
+               System.out.println("Linked list is empty");
+               return;
+           }
+           Node todelete=head;
+           head=head.next;
+           todelete=null;// call garbage collection (it will delete but stored in memory
+        }
+         void deleteByValue(int val){
+           if(head==null){
+               System.out.println("LinkedList is empty");
+               return;
+           }
+           Node temp=head;
+           while(temp.next!=null && temp.next.data!=val){
+               temp=temp.next;
+           }
+           if(temp.next==null){
+               System.out.println("value not found");
+               return;
+           }
+           if(head.data==val){
+               deleteAtHead();
+               return;
+           }
+           Node todelete=temp.next;
+           temp.next=temp.next.next;
+           todelete=null;
+         }
+
         void printSLL(){
            Node temp=head;
            while(temp!=null) {
@@ -70,6 +101,8 @@ public class SLL {
             sll.insertAtTail(50);
             sll.printSLL();
             sll.insertAtPos(60,3);
+            sll.printSLL();
+            sll.deleteByValue(10);
             sll.printSLL();
         }
 }
