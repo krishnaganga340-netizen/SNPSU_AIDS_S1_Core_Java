@@ -50,68 +50,107 @@ public class DLL {
         temp.Next=n;
         n.pre=temp;
     }
-    void InsertAtPos(int val, int pos){
-       Node n = new  Node(val);
+//    void InsertAtPos(int val, int pos){
+//       Node n = new  Node(val);
+//        Node temp=head;
+//        while(--pos>0){
+//            temp=temp.Next;
+//        }
+//        n.Next=temp.Next;
+//        n.pre=temp;
+//        temp.Next.pre=n;
+//        temp.Next=n;
+//
+//
+//
+  //  }
+int getLLSize() {
+    int size = 0;
+    Node temp = head;
+
+    while (temp != null) {
+        temp = temp.Next;
+        size++;
+    }
+
+    return size;
+}
+
+    void insertAtPos(int val, int pos) {
+        Node n = new Node(val);
+
+        int size = getLLSize(); // calling to find how many nodes currently in the list
+
+        if (pos < 0 || pos > size) {
+            System.out.println("Get Lost");
+        }
+        else if (pos == 0) {
+            if (head == null) {
+                head = n;
+            }
+            else {
+                n.Next = head;
+                head.pre = n;
+                head = n;
+            }
+        }
+        else {
+            Node temp = head;
+
+            while (--pos > 0) {
+                temp = temp.Next;
+            }
+
+            n.Next = temp.Next;
+            n.pre = temp;
+
+            if (temp.Next != null) {
+                temp.Next.pre = n;
+            }
+
+            temp.Next = n;
+        }
+    }
+    void  deleteAThead(){
+        if(head==null){
+            return;
+        }
+        Node toDelete=head;
+        head=head.Next;
+        if(head!=null){
+            head.pre=null;
+        }
+        toDelete=null;
+    }
+    void deleteByValue(int val){
+        if(head==null){
+            return;
+        }
+        if(head.data==val){
+            Node todelete=head;
+            head=head.Next;
+
+            if(head!=null){
+                head.pre=null;
+            }
+            return;
+        }
+        Node todelete=null;
+
         Node temp=head;
-        while(--pos>0){
+        while(temp!=null && temp.Next.data!=val){
             temp=temp.Next;
         }
-        n.Next=temp.Next;
-        n.pre=temp;
-        temp.Next.pre=n;
-        temp.Next=n;
-//
-//
-//
+        if(temp!=null){
+            temp.pre.Next=temp.Next;
+            if(temp.Next!=null){
+                temp.Next.pre=temp.pre;
+            }
+        }
+
+
     }
-//int getLLSize() {
-//    int size = 0;
-//    Node temp = head;
-//
-//    while (temp != null) {
-//        temp = temp.Next;
-//        size++;
-//    }
-//
-//    return size;
-//}
-//
-//    void insertAtPos(int val, int pos) {
-//        Node n = new Node(val);
-//
-//        int size = getLLSize(); // calling to find how many nodes currently in the list
-//
-//        if (pos < 0 || pos > size) {
-//            System.out.println("Get Lost");
-//        }
-//        else if (pos == 0) {
-//            if (head == null) {
-//                head = n;
-//            }
-//            else {
-//                n.Next = head;
-//                head.pre = n;
-//                head = n;
-//            }
-//        }
-//        else {
-//            Node temp = head;
-//
-//            while (--pos > 0) {
-//                temp = temp.Next;
-//            }
-//
-//            n.Next = temp.Next;
-//            n.pre = temp;
-//
-//            if (temp.Next != null) {
-//                temp.Next.pre = n;
-//            }
-//
-//            temp.Next = n;
-//        }
-//    }
-//
+
 
     void printDLL() {
         Node temp = head;
@@ -134,9 +173,12 @@ class Driver{
         dll.printDLL();
         dll.InsertAtTail(60);
         dll.printDLL();
-        dll.InsertAtPos(25,3);
+        dll.insertAtPos(25,3);
         dll.printDLL();
-
+        dll.deleteAThead();
+        dll.printDLL();
+        dll.deleteByValue(30);
+        dll.printDLL();
     }
 }
 
