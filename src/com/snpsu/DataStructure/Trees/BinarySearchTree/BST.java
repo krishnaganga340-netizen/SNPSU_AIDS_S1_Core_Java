@@ -1,5 +1,7 @@
 package com.snpsu.DataStructure.Trees.BinarySearchTree;
 
+import java.sql.SQLOutput;
+
 class Node{
     int data;
     Node left;
@@ -74,10 +76,30 @@ public class BST {
             root.right=removeRec(root.right, key);
         }else{
             // u found the node to be deleted
+            //case 1- Node with 0 or 1 child
+            if(root.left==null){
+                return root.right;
+            }else if(root.right==null){
+                return root.left;
+            }
+            // case 2-Node with 2 children
+            Node successor=findSuccessor(root.right);
+            root.data= successor.data;
+            root.right=removeRec(root.right, successor.data);
+
         }
+        return root;
+    }
+
+    private Node findSuccessor(Node node){
+        while(node.left!=null){
+            node=node.left;
+        }
+        return node;
     }
     void remove(int key){
-        root=removeRec(root,key);
+
+          root=removeRec(root,key);
     }
 }
 
@@ -86,13 +108,24 @@ class Driver{
     public static void main(String[] args) {
         BST bst=new BST();
         bst.insert(100);
+        bst.insert(50);
+        bst.insert(150);
+        bst.insert(30);
+        bst.insert(60);
+        bst.insert(120);
+        bst.insert(110);
+        bst.insert(55);
         bst.insert(180);
-         bst.insert(50);
-         bst.insert(30);
-         bst.insert(70);
+        bst.insert(120);
+        bst.insert(130);
         System.out.println( bst.search(70));
-        System.out.print("DFS:");
+        System.out.println("DFS:");
         bst.DFS(bst.root);
+
+        System.out.println(bst.search(120));
+        bst.remove(55);
+       bst.DFS(bst.root);
+
+
     }
 }
-
